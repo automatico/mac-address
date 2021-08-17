@@ -2,38 +2,37 @@ module MacAddress
   MAC_RE = /^[0-9a-f]{12}$/i
 
   class MAC
-    @address : String
+    @bare_mac : String
 
-    getter address
-
-    def initialize(@address)
-      @address = @address.gsub(/[:\-\.]/, "")
+    def initialize(address : String)
+      @bare_mac = address.gsub(/[:\-\.]/, "")
+      unless MacAddress::MAC_RE.match(@bare_mac)
+        raise MacAddress::InvalidMacAddress.new(@bare_mac)
+      end
     end
 
-    def raw
-      @address
+    def bare
+      @bare_mac
     end
 
     def eui
-      format(mac: @address, delimiter: "-", spacing: 2)
+      format(bare_mac: @bare_mac, delimiter: "-", spacing: 2)
     end
 
     def unix
-      format(mac: @address, delimiter: ":", spacing: 2)
+      format(bare_mac: @bare_mac, delimiter: ":", spacing: 2)
     end
 
     def dot
-      format(mac: @address, delimiter: ".", spacing: 4)
+      format(bare_mac: @bare_mac, delimiter: ".", spacing: 4)
     end
 
-    # format takes a raw mac and inserts a delimiter
-    # every N number of spaces.
-    private def format(mac : String, delimiter : String, spacing : Int8)
+    private def format(bare_mac : String, delimiter : String, spacing : Int8)
       re = /.{1,#{spacing}}/
       # .scan(re) returns an array of Regex::MatchData
       # .map(&.[0]) returns the first match of each element as a string
       # .join(delimiter) joins the array into a string
-      mac.scan(re).map(&.[0]).join(delimiter)
+      bare_mac.scan(re).map(&.[0]).join(delimiter)
     end
 
   end
