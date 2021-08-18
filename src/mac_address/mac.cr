@@ -46,6 +46,10 @@ module MacAddress
       @bare_mac[6..11]
     end
 
+    def is_broadcast?
+      @bare_mac == "ffffffffffff" ? true : false
+    end
+
     private def format(bare_mac : String, delimiter : String, spacing : Int8)
       re = /.{1,#{spacing}}/
 

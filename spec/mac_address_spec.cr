@@ -7,8 +7,16 @@ describe MacAddress::MAC do
   end
 
   it "is bare" do
-    mac = create_test_object("1111.2222.3333")
-    mac.bare.should eq("111122223333")
+    macs = [
+      "1111.2222.3333",
+      "11-11-22-22-33-33",
+      "11:11:22:22:33:33",
+      "111122223333",
+    ]
+    macs.each do |m|
+      mac = create_test_object(m)
+      mac.bare.should eq("111122223333")
+    end
   end
 
   it "is eui" do
@@ -39,5 +47,15 @@ describe MacAddress::MAC do
   it "is host" do
     mac = create_test_object("1111.2222.3333")
     mac.host.should eq("223333")
+  end
+
+  it "is broadcast" do
+    mac = create_test_object("ff:ff:ff:ff:ff:ff")
+    mac.is_broadcast?.should eq(true)
+  end
+
+  it "is not broadcast" do
+    mac = create_test_object("1111.2222.3333")
+    mac.is_broadcast?.should eq(false)
   end
 end
