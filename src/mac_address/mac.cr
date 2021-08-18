@@ -42,13 +42,13 @@ module MacAddress
     end
 
     # Return the vendor portion of the MAC address.
-    # EG: 11-aa-bb-cd-ef-33 == 11aabb
+    # EG: 11-aa-bb-cd-ef-33 => 11aabb
     def oui
       @bare_mac[0..5]
     end
 
     # Return the nic portion of the MAC address.
-    # EG: 11-aa-bb-cd-ef-33 == cdef33
+    # EG: 11-aa-bb-cd-ef-33 => cdef33
     def nic
       @bare_mac[6..11]
     end
@@ -69,6 +69,7 @@ module MacAddress
     end
 
     # Returns the MAC address in an array of octets.
+    # EG: 11-aa-bb-cd-ef-33 => ["11", "aa", "bb", "cd", "ef", "33"]
     def octets
       format(bare_mac: @bare_mac, delimiter: ":", spacing: 2).split(":")
     end
