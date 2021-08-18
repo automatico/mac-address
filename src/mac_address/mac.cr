@@ -41,6 +41,12 @@ module MacAddress
       @bare_mac.to_u64(base: 16)
     end
 
+    # Return the binary representation for a MAC.
+    # EG: 11-aa-bb-cd-ef-33 => 100011010101010111011110011011110111100110011
+    def binary
+      int.to_s(2)
+    end
+
     # Return the vendor portion of the MAC address.
     # EG: 11-aa-bb-cd-ef-33 => 11aabb
     def oui

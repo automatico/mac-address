@@ -90,4 +90,9 @@ describe MacAddress::MAC do
     mac = create_test_object("11-aa-bb-cd-ef-33")
     mac.octets.should eq(["11", "aa", "bb", "cd", "ef", "33"])
   end
+
+  it "is binary" do
+    mac = create_test_object("11-aa-bb-cd-ef-33")
+    mac.binary.should eq("100011010101010111011110011011110111100110011")
+  end
 end
