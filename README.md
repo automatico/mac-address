@@ -33,7 +33,7 @@ puts mac.int # 19498294723669
 
 puts mac.oui # => 11bbcc
 
-puts mac.host # => ee4455
+puts mac.nic # => ee4455
 ```
 
 ## Contributing

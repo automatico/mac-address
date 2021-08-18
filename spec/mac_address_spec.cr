@@ -45,9 +45,9 @@ describe MacAddress::MAC do
     mac.oui.should eq("11aabb")
   end
 
-  it "is host" do
+  it "is nic" do
     mac = create_test_object("11AA.bbcD.EF33")
-    mac.host.should eq("cdef33")
+    mac.nic.should eq("cdef33")
   end
 
   it "is broadcast" do
@@ -84,5 +84,10 @@ describe MacAddress::MAC do
       mac = create_test_object(m)
       mac.is_unicast?.should eq(false)
     end
+  end
+
+  it "is an array of octets" do
+    mac = create_test_object("11-aa-bb-cd-ef-33")
+    mac.octets.should eq(["11", "aa", "bb", "cd", "ef", "33"])
   end
 end
