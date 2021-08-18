@@ -7,7 +7,7 @@ module MacAddress
     def initialize(address : String)
       @bare_mac = address.gsub(/[:\-\.]/, "")
       unless MacAddress::MAC_RE.match(@bare_mac)
-        raise MacAddress::MacAddressError.new(@bare_mac)
+        raise MacAddress::InvalidMacError.new(@bare_mac)
       end
     end
 

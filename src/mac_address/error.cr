@@ -1,4 +1,4 @@
 module MacAddress
-  class MacAddressError < Exception
+  class InvalidMacError < Exception
   end
 end
