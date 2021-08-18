@@ -54,18 +54,18 @@ module MacAddress
     end
 
     # Returns true if MAC is a broadcast address.
-    def is_broadcast?
+    def broadcast?
       bare == "ffffffffffff" ? true : false
     end
 
     # Returns true if MAC is a multicast address.
-    def is_multicast?
+    def multicast?
       oui == "01005e" ? true : false
     end
 
     # Returns true if MAC is a unicast address.
-    def is_unicast?
-      is_broadcast? || is_multicast? ? false : true
+    def unicast?
+      broadcast? || multicast? ? false : true
     end
 
     # Returns the MAC address in an array of octets.

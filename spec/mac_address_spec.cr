@@ -52,27 +52,27 @@ describe MacAddress::MAC do
 
   it "is broadcast" do
     mac = create_test_object("ff:ff:ff:ff:ff:ff")
-    mac.is_broadcast?.should eq(true)
+    mac.broadcast?.should eq(true)
   end
 
   it "is not broadcast" do
     mac = create_test_object("11AA.bbcD.EF33")
-    mac.is_broadcast?.should eq(false)
+    mac.broadcast?.should eq(false)
   end
 
   it "is multicast" do
     mac = create_test_object("01:00:5e:ff:ff:ff")
-    mac.is_multicast?.should eq(true)
+    mac.multicast?.should eq(true)
   end
 
   it "is not multicast" do
     mac = create_test_object("11AA.bbcD.EF33")
-    mac.is_multicast?.should eq(false)
+    mac.multicast?.should eq(false)
   end
 
   it "is unicast" do
     mac = create_test_object("11AA.bbcD.EF33")
-    mac.is_unicast?.should eq(true)
+    mac.unicast?.should eq(true)
   end
 
   it "is not unicast" do
@@ -82,7 +82,7 @@ describe MacAddress::MAC do
     ]
     macs.each do |m|
       mac = create_test_object(m)
-      mac.is_unicast?.should eq(false)
+      mac.unicast?.should eq(false)
     end
   end
 
