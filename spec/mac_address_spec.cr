@@ -21,9 +21,14 @@ describe MacAddress::MAC do
     mac.dot.should eq("1111.2222.3333")
   end
 
-  it "is unix" do
+  it "is hex" do
     mac = create_test_object("1111.2222.3333")
-    mac.unix.should eq("11:11:22:22:33:33")
+    mac.hex.should eq("11:11:22:22:33:33")
+  end
+
+  it "is int" do
+    mac = create_test_object("1111.2222.3333")
+    mac.int.should eq(18765284782899)
   end
 
   it "is oui" do

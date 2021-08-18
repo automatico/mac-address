@@ -21,14 +21,19 @@ module MacAddress
       format(bare_mac: @bare_mac, delimiter: "-", spacing: 2)
     end
 
-    # Return the MAC address in unix notation.
-    def unix
+    # Return the MAC address in hex notation.
+    def hex
       format(bare_mac: @bare_mac, delimiter: ":", spacing: 2)
     end
 
     # Return the MAC address in dot notation.
     def dot
       format(bare_mac: @bare_mac, delimiter: ".", spacing: 4)
+    end
+
+    # Return the MAC address as an integer.
+    def int
+      @bare_mac.to_i64(base: 16)
     end
 
     # Return the vendor portion of the MAC address.
