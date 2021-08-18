@@ -33,7 +33,7 @@ module MacAddress
 
     # Return the MAC address as an integer.
     def int
-      @bare_mac.to_i64(base: 16)
+      @bare_mac.to_u64(base: 16)
     end
 
     # Return the vendor portion of the MAC address.
