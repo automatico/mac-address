@@ -47,11 +47,15 @@ module MacAddress
     end
 
     def is_broadcast?
-      @bare_mac == "ffffffffffff" ? true : false
+      bare == "ffffffffffff" ? true : false
     end
 
     def is_multicast?
       oui == "01005e" ? true : false
+    end
+
+    def is_unicast?
+      is_broadcast? || is_multicast? ? false : true
     end
 
     private def format(bare_mac : String, delimiter : String, spacing : Int8)

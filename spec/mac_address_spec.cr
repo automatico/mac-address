@@ -68,4 +68,20 @@ describe MacAddress::MAC do
     mac = create_test_object("1111.2222.3333")
     mac.is_multicast?.should eq(false)
   end
+
+  it "is unicast" do
+    mac = create_test_object("1111.2222.3333")
+    mac.is_unicast?.should eq(true)
+  end
+
+  it "is not unicast" do
+    macs = [
+      "01:00:5e:ff:ff:ff",
+      "ff:ff:ff:ff:ff:ff",
+    ]
+    macs.each do |m|
+      mac = create_test_object(m)
+      mac.is_unicast?.should eq(false)
+    end
+  end
 end
