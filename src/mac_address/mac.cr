@@ -46,14 +46,17 @@ module MacAddress
       @bare_mac[6..11]
     end
 
+    # Returns true if MAC is a broadcast address.
     def is_broadcast?
       bare == "ffffffffffff" ? true : false
     end
 
+    # Returns true if MAC is a multicast address.
     def is_multicast?
       oui == "01005e" ? true : false
     end
 
+    # Returns true if MAC is a unicast address.
     def is_unicast?
       is_broadcast? || is_multicast? ? false : true
     end
