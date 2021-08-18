@@ -58,4 +58,14 @@ describe MacAddress::MAC do
     mac = create_test_object("1111.2222.3333")
     mac.is_broadcast?.should eq(false)
   end
+
+  it "is multicast" do
+    mac = create_test_object("01:00:5e:ff:ff:ff")
+    mac.is_multicast?.should eq(true)
+  end
+
+  it "is not multicast" do
+    mac = create_test_object("1111.2222.3333")
+    mac.is_multicast?.should eq(false)
+  end
 end
