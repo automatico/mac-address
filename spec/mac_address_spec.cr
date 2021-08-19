@@ -93,6 +93,11 @@ describe MacAddress::MAC do
 
   it "is binary" do
     mac = create_test_object("11-aa-bb-cd-ef-33")
-    mac.binary.should eq("100011010101010111011110011011110111100110011")
+    mac.binary.should eq("000100011010101010111011110011011110111100110011")
+  end
+
+  it "is an array of bits" do
+    mac = create_test_object("11-aa-bb-cd-ef-33")
+    mac.bits.should eq(["0001", "0001", "1010", "1010", "1011", "1011", "1100", "1101", "1110", "1111", "0011", "0011"])
   end
 end
