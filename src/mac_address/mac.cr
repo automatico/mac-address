@@ -79,6 +79,12 @@ module MacAddress
       bits.join
     end
 
+    # Returns the MAC address in an array of octets.
+    # EG: 11-aa-bb-cd-ef-33 => ["11", "aa", "bb", "cd", "ef", "33"]
+    def octets
+      format(bare_mac: @bare_mac, delimiter: ":", spacing: 2).split(":")
+    end
+
     # Return the vendor portion of the MAC address.
     # EG: 11-aa-bb-cd-ef-33 => 11aabb
     def oui
@@ -104,12 +110,6 @@ module MacAddress
     # Returns true if MAC is a unicast address.
     def unicast?
       broadcast? || multicast? ? false : true
-    end
-
-    # Returns the MAC address in an array of octets.
-    # EG: 11-aa-bb-cd-ef-33 => ["11", "aa", "bb", "cd", "ef", "33"]
-    def octets
-      format(bare_mac: @bare_mac, delimiter: ":", spacing: 2).split(":")
     end
 
     private def format(bare_mac : String, delimiter : String, spacing : Int8)
