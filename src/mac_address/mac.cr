@@ -130,6 +130,7 @@ module MacAddress
     end
 
     # Returns the MAC address as an IPv6 link local address.
+    # EG: 11-aa-bb-cd-ef-33 => fe80::13aa:bbff:fecd:ef33
     def ipv6_link_local : String
       the_bits = bits
       the_octets = octets
