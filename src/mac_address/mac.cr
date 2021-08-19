@@ -33,31 +33,31 @@ module MacAddress
 
     # Return the bare MAC address without any delimiters.
     # EG: 11aabbcdef33
-    def bare
+    def bare : String
       @bare_mac
     end
 
     # Return the MAC address in EUI notation.
     # EG: 11-aa-bb-cd-ef-33
-    def eui
+    def eui : String
       format(bare_mac: @bare_mac, delimiter: "-", spacing: 2)
     end
 
     # Return the MAC address in hex notation.
     # EG 11:aa:bb:cd:ef:33
-    def hex
+    def hex : String
       format(bare_mac: @bare_mac, delimiter: ":", spacing: 2)
     end
 
     # Return the MAC address in dot notation.
     # EG: 11aa.bbcd.ef33
-    def dot
+    def dot : String
       format(bare_mac: @bare_mac, delimiter: ".", spacing: 4)
     end
 
     # Return the MAC address as an integer.
     # EG: 11-aa-bb-cd-ef-33 == 19424992948019
-    def int
+    def int : UInt64
       @bare_mac.to_u64(base: 16)
     end
 
@@ -65,7 +65,7 @@ module MacAddress
     # EG: "11-aa-bb-cd-ef-33"
     # => ["0001", "0001", "1010", "1010", "1011", "1011",
     #    "1100", "1101", "1110", "1111", "0011", "0011"]
-    def bits
+    def bits : Array(String)
       bits = [] of String
       @bare_mac.each_char do |c|
         bits << HEX_TO_BIT_MAP[c]
@@ -75,44 +75,44 @@ module MacAddress
 
     # Return the binary representation for a MAC.
     # EG: 11-aa-bb-cd-ef-33 => 100011010101010111011110011011110111100110011
-    def binary
+    def binary : String
       bits.join
     end
 
     # Returns the MAC address in an array of octets.
     # EG: 11-aa-bb-cd-ef-33 => ["11", "aa", "bb", "cd", "ef", "33"]
-    def octets
+    def octets : Array(String)
       hex.split(":")
     end
 
     # Return the vendor portion of the MAC address.
     # EG: 11-aa-bb-cd-ef-33 => 11aabb
-    def oui
+    def oui : String
       @bare_mac[0..5]
     end
 
     # Return the nic portion of the MAC address.
     # EG: 11-aa-bb-cd-ef-33 => cdef33
-    def nic
+    def nic : String
       @bare_mac[6..11]
     end
 
     # Returns true if MAC is a broadcast address.
-    def broadcast?
+    def broadcast? : Bool
       @bare_mac == BROADCAST_MAC ? true : false
     end
 
     # Returns true if MAC is a multicast address.
-    def multicast?
+    def multicast? : Bool
       oui == MULTICAST_MAC ? true : false
     end
 
     # Returns true if MAC is a unicast address.
-    def unicast?
+    def unicast? : Bool
       broadcast? || multicast? ? false : true
     end
 
-    private def format(bare_mac : String, delimiter : String, spacing : Int8)
+    private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
       regex = /.{1,#{spacing}}/
 
       # .scan(re) returns an array of Regex::MatchData.
