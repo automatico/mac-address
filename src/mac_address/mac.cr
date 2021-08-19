@@ -82,7 +82,7 @@ module MacAddress
     # Returns the MAC address in an array of octets.
     # EG: 11-aa-bb-cd-ef-33 => ["11", "aa", "bb", "cd", "ef", "33"]
     def octets
-      format(bare_mac: @bare_mac, delimiter: ":", spacing: 2).split(":")
+      hex.split(":")
     end
 
     # Return the vendor portion of the MAC address.
