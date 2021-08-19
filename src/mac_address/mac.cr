@@ -93,7 +93,7 @@ module MacAddress
 
     # Returns true if MAC is a broadcast address.
     def broadcast?
-      bare == BROADCAST_MAC ? true : false
+      @bare_mac == BROADCAST_MAC ? true : false
     end
 
     # Returns true if MAC is a multicast address.
