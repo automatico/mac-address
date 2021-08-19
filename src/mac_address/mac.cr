@@ -38,6 +38,7 @@ module MacAddress
     "1110" => "e",
     "1111" => "f",
   }
+
   class MAC
     @bare_mac : String
 
@@ -131,6 +132,7 @@ module MacAddress
 
     # Returns the MAC address as an IPv6 link local address.
     # EG: 11-aa-bb-cd-ef-33 => fe80::13aa:bbff:fecd:ef33
+    # TODO: Add description on the conversion process.
     def ipv6_link_local : String
       the_bits = bits
       the_octets = octets

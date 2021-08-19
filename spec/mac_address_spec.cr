@@ -102,7 +102,14 @@ describe MacAddress::MAC do
   end
 
   it "is IPv6 link-local address" do
-    mac = create_test_object("11-aa-bb-cd-ef-33")
-    mac.ipv6_link_local.should eq("fe80::13aa:bbff:fecd:ef33")
+    macs = [
+      {have: "11-aa-bb-cd-ef-33", want: "fe80::13aa:bbff:fecd:ef33"},
+      {have: "ab:cd:ef:12:34:56", want: "fe80::a9cd:efff:fe12:3456"},
+      {have: "bc:cd:ef:12:34:56", want: "fe80::becd:efff:fe12:3456"},
+    ]
+    macs.each do |m|
+      mac = create_test_object(m[:have])
+      mac.ipv6_link_local.should eq(m[:want])
+    end
   end
 end
