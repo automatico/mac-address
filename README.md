@@ -91,6 +91,10 @@ Returns `true` if MAC is a unicast address.
 mac.unicast? # => true
 ```
 
+Convert MAC address into an IPv6 link local address.
+```crystal
+mac.ipv6_link_local # => fe80::13bb:ccff:feee:4455
+```
 
 ## Contributing
 

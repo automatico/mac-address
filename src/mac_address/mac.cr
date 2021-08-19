@@ -20,7 +20,24 @@ module MacAddress
     'e' => "1110",
     'f' => "1111",
   }
-
+  private BIT_TO_HEX_MAP = {
+    "0000" => "0",
+    "0001" => "1",
+    "0010" => "2",
+    "0011" => "3",
+    "0100" => "4",
+    "0101" => "5",
+    "0110" => "6",
+    "0111" => "7",
+    "1000" => "8",
+    "1001" => "9",
+    "1010" => "a",
+    "1011" => "b",
+    "1100" => "c",
+    "1101" => "d",
+    "1110" => "e",
+    "1111" => "f",
+  }
   class MAC
     @bare_mac : String
 
@@ -110,6 +127,27 @@ module MacAddress
     # Returns true if MAC is a unicast address.
     def unicast? : Bool
       broadcast? || multicast? ? false : true
+    end
+
+    # Convert the MAC address into an IPv6 link local address.
+    def ipv6_link_local : String
+      the_bits = bits
+      the_octets = octets
+
+      flipped = [] of Int8
+      the_bits[1].each_char_with_index do |c, i|
+        if i == 2
+          if c.to_i8 == 0
+            flipped << 1
+          else
+            flipped << 0
+          end
+        else
+          flipped << c.to_i8
+        end
+      end
+
+      "fe80::#{BIT_TO_HEX_MAP[the_bits[0]]}#{BIT_TO_HEX_MAP[flipped.join]}#{the_octets[1]}:#{the_octets[2]}ff:fe#{the_octets[3]}:#{the_octets[4]}#{the_octets[5]}"
     end
 
     private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
