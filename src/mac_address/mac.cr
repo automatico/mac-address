@@ -129,7 +129,7 @@ module MacAddress
       broadcast? || multicast? ? false : true
     end
 
-    # Convert the MAC address into an IPv6 link local address.
+    # Returns the MAC address as an IPv6 link local address.
     def ipv6_link_local : String
       the_bits = bits
       the_octets = octets
