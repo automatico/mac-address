@@ -100,4 +100,9 @@ describe MacAddress::MAC do
     mac = create_test_object("11-aa-bb-cd-ef-33")
     mac.bits.should eq(["0001", "0001", "1010", "1010", "1011", "1011", "1100", "1101", "1110", "1111", "0011", "0011"])
   end
+
+  it "is IPv6 link-local address" do
+    mac = create_test_object("11-aa-bb-cd-ef-33")
+    mac.ipv6_link_local.should eq("fe80::13aa:bbff:fecd:ef33")
+  end
 end
