@@ -112,4 +112,9 @@ describe MacAddress::MAC do
       mac.ipv6_link_local.should eq(m[:want])
     end
   end
+
+  it "is eui-64" do
+    mac = create_test_object("11-aa-bb-cd-ef-33")
+    mac.to_eui64.should eq("11:aa:bb:ff:fe:cd:ef:33")
+  end
 end

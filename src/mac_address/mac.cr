@@ -153,6 +153,11 @@ module MacAddress
       "fe80::#{BIT_TO_HEX_MAP[the_bits[0]]}#{BIT_TO_HEX_MAP[flipped.join]}#{the_octets[1]}:#{the_octets[2]}ff:fe#{the_octets[3]}:#{the_octets[4]}#{the_octets[5]}"
     end
 
+    def to_eui64 : String
+      the_octets = self.octets
+      "#{the_octets[0..2].join(":")}:ff:fe:#{the_octets[3..5].join(":")}"
+    end
+
     private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
       regex = /.{1,#{spacing}}/
 
