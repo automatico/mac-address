@@ -164,8 +164,7 @@ module MacAddress
     end
 
     # Returns a MAC address spaced and delimited via 
-    # the defined paramters
-    # 
+    # the defined paramters.
     private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
       regex = /.{1,#{spacing}}/
 
