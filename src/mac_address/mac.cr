@@ -132,7 +132,6 @@ module MacAddress
 
     # Returns the MAC address as an IPv6 link local address.
     # EG: 11-aa-bb-cd-ef-33 => fe80::13aa:bbff:fecd:ef33
-    # TODO: Add description on the conversion process.
     def ipv6_link_local : String
       formatted = format(bare_mac: ul_inverted, delimiter: ":", spacing: 4)
       "fe80::#{formatted}"
@@ -140,25 +139,6 @@ module MacAddress
 
     # Returns an EUI-48 MAC address as an EUI-64 MAC address.
     # EG: 00:15:2b:e4:9b:60 => 02:15:2b:ff:fe:e4:9b:60
-    # TODO: Add description on the conversion process.
-    # http://www.faqs.org/rfcs/rfc2373.html
-    #
-    # Example MAC: 00:15:2b:e4:9b:60
-    #
-    # Step #1: Split the MAC address in the middle:
-    # 00:15:2b <==> e4:9b:60
-    #
-    # Step #2: Insert FF:FE in the middle:
-    # 00:15:2b:FF:FE:e4:9b:60
-    #
-    # Step #3: Convert the first eight bits to binary:
-    # 00 -> 00000000
-    #
-    # Step #4: Invert the 7th bit:
-    # 00000000 -> 00000010
-    #
-    # Step #5: Convert these first eight bits back into hex:
-    # 00000010 -> 02, which yields an EUI-64 address of 02:15:2B:FF:FE:e4:9b:60
     def eui64 : String
       format(bare_mac: ul_inverted, delimiter: ":", spacing: 2)
     end
@@ -175,8 +155,24 @@ module MacAddress
     end
 
     # Returns a MAC address with the Universal/Local (U/L)
-    # Bit inverted. The U/L bit is the 7th but in the first
-    # octet.
+    # Bit inverted. The U/L bit is the 7th but in the first octet.
+    # Reference RFC: http://www.faqs.org/rfcs/rfc2373.html
+    #
+    # The process to convert the MAC is as follows:
+    # 1) Split the MAC address in the middle.
+    # 00:15:2b <==> e4:9b:60
+    #
+    # 2) Insert ff:fe in the middle.
+    # 00:15:2b:ff:fe:e4:9b:60
+    #
+    # 3) Convert the first eight bits to binary.
+    # 00 -> 00000000
+    #
+    # 4) Invert the 7th bit.
+    # 00000000 -> 00000010
+    #
+    # 5) Convert these first eight bits back into hex.
+    # 00000010 -> 02, which yields an EUI-64 address of 02:15:2b:ff:fe:e4:9b:60
     private def ul_inverted
       the_bits = bits
       the_octets = octets
