@@ -98,7 +98,7 @@ mac.ipv6_link_local # => fe80::13bb:ccff:feee:4455
 
 Convert MAC address into an EUI-64 MAC address.
 ```crystal
-mac.eui64 # => 13:aa:bb:ff:fe:cd:ef:33
+mac.eui64 # => 13:bb:cc:ff:fe:ee:44:55
 ```
 
 ## Contributing
