@@ -163,6 +163,9 @@ module MacAddress
       format(bare_mac: ul_inverted, delimiter: ":", spacing: 2)
     end
 
+    # Returns a MAC address spaced and delimited via 
+    # the defined paramters
+    # 
     private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
       regex = /.{1,#{spacing}}/
 
@@ -172,6 +175,9 @@ module MacAddress
       bare_mac.scan(regex).map(&.[0]).join(delimiter)
     end
 
+    # Returns a MAC address with the Universal/Local (U/L)
+    # Bit inverted. The U/L bit is the 7th but in the first 
+    # octet.
     private def ul_inverted
       the_bits = bits
       the_octets = octets
