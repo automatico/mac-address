@@ -1,3 +1,3 @@
 module MacAddress
-  VERSION = "0.3.1"
+  VERSION = {{ `shards version "#{__DIR__}"`.chomp.stringify }}
 end

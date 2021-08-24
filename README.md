@@ -96,6 +96,11 @@ Convert MAC address into an IPv6 link local address.
 mac.ipv6_link_local # => fe80::13bb:ccff:feee:4455
 ```
 
+Convert MAC address into an EUI-64 MAC address.
+```crystal
+mac.eui64 # => 13:aa:bb:ff:fe:cd:ef:33
+```
+
 ## Contributing
 
 1. Fork it (<https://github.com/automatico/mac-address/fork>)

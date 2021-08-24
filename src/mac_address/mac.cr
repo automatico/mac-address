@@ -134,6 +134,45 @@ module MacAddress
     # EG: 11-aa-bb-cd-ef-33 => fe80::13aa:bbff:fecd:ef33
     # TODO: Add description on the conversion process.
     def ipv6_link_local : String
+      formatted = format(bare_mac: ul_inverted, delimiter: ":", spacing: 4)
+      "fe80::#{formatted}"
+    end
+
+    # Returns an EUI-48 MAC address as an EUI-64 MAC address.
+    # EG: 00:15:2b:e4:9b:60 => 02:15:2b:ff:fe:e4:9b:60
+    # TODO: Add description on the conversion process.
+    # http://www.faqs.org/rfcs/rfc2373.html
+    #
+    # Example MAC: 00:15:2b:e4:9b:60
+    #
+    # Step #1: Split the MAC address in the middle:
+    # 00:15:2b <==> e4:9b:60
+    #
+    # Step #2: Insert FF:FE in the middle:
+    # 00:15:2b:FF:FE:e4:9b:60
+    #
+    # Step #3: Convert the first eight bits to binary:
+    # 00 -> 00000000
+    #
+    # Step #4: Invert the 7th bit:
+    # 00000000 -> 00000010
+    #
+    # Step #5: Convert these first eight bits back into hex:
+    # 00000010 -> 02, which yields an EUI-64 address of 02:15:2B:FF:FE:e4:9b:60
+    def eui64 : String
+      format(bare_mac: ul_inverted, delimiter: ":", spacing: 2)
+    end
+
+    private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
+      regex = /.{1,#{spacing}}/
+
+      # .scan(re) returns an array of Regex::MatchData.
+      # .map(&.[0]) returns the first match of each element as a string.
+      # .join(delimiter) joins the array into a string.
+      bare_mac.scan(regex).map(&.[0]).join(delimiter)
+    end
+
+    private def ul_inverted
       the_bits = bits
       the_octets = octets
 
@@ -149,17 +188,8 @@ module MacAddress
           flipped << c.to_i8
         end
       end
-
-      "fe80::#{BIT_TO_HEX_MAP[the_bits[0]]}#{BIT_TO_HEX_MAP[flipped.join]}#{the_octets[1]}:#{the_octets[2]}ff:fe#{the_octets[3]}:#{the_octets[4]}#{the_octets[5]}"
+      "#{BIT_TO_HEX_MAP[the_bits[0]]}#{BIT_TO_HEX_MAP[flipped.join]}#{the_octets[1]}#{the_octets[2]}fffe#{the_octets[3]}#{the_octets[4]}#{the_octets[5]}"
     end
 
-    private def format(bare_mac : String, delimiter : String, spacing : Int8) : String
-      regex = /.{1,#{spacing}}/
-
-      # .scan(re) returns an array of Regex::MatchData.
-      # .map(&.[0]) returns the first match of each element as a string.
-      # .join(delimiter) joins the array into a string.
-      bare_mac.scan(regex).map(&.[0]).join(delimiter)
-    end
   end
 end

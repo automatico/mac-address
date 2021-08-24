@@ -112,4 +112,15 @@ describe MacAddress::MAC do
       mac.ipv6_link_local.should eq(m[:want])
     end
   end
+
+  it "is eui-64" do
+    macs = [
+      {have: "11-aa-bb-cd-ef-33", want: "13:aa:bb:ff:fe:cd:ef:33"},
+      {have: "00:15:2b:e4:9b:60", want: "02:15:2b:ff:fe:e4:9b:60"},
+    ]
+    macs.each do |m|
+      mac = create_test_object(m[:have])
+      mac.eui64.should eq(m[:want])
+    end
+  end
 end
